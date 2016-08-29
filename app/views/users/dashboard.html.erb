@@ -1,0 +1,84 @@
+
+<h2>Hello <%= @user.alias %>!</h2>
+
+
+<form action="/add" method="post">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>"/> 
+  <div id="anime"></div>
+  <input type="button" name="add_anime" value="Add Anime" id="add"/>
+  <input type="submit" name="submit_anime" value="Submit"/>
+</form>
+
+
+<h2>Currently Watching</h2>
+<table id="current">
+  <tr>
+    <th>#</th>
+    <th>Title</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @current.each do |current| %>
+  <tr>
+    <td></td>
+    <td><%= current.title %></td>
+    <td><form action="/delete" method="post">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>"/> 
+  <input type="hidden" name="id" value="<%= current.id %>"/>
+  <input type="submit" name="delete_button" value="Delete From List"/>
+</form></td>
+    <td><form action="/complete" method="post">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>"/> 
+  <input type="hidden" name="update_id" value="<%= current.id %>"/>
+  <input type="submit" name="complete_button" value="Completed"/>
+</form></td>
+  </tr>
+  <% end %>
+</table>
+<br> 
+<h2>Want to Watch</h2>
+<table id="want">
+  <tr>
+    <th>#</th>
+    <th>Title</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @want.each do |want| %>
+  <tr>
+    <td></td>
+    <td><%= want.title %></td>
+    <td><form action="/delete" method="post">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>"/> 
+  <input type="hidden" name="id" value="<%= want.id %>">
+  <input type="submit" name="delete_button" value="Delete From List"/>
+</form></td>
+    <td><form action="/watch" method="post">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>"/> 
+  <input type="hidden" name="watching_id" value="<%= want.id %>"/>
+  <input type="submit" name="watch_button" value="Now Watching"/>
+</form></td>
+  </tr>
+  <% end %>
+</table>
+<br>
+<h2>Completed</h2>
+<table id="complete">
+  <tr>
+    <th>#</th>
+    <th>Title</th>
+    <th></th>
+  </tr>
+  <% @complete.each do |complete| %>
+  <tr>
+    <td></td>
+    <td><%= complete.title %></td>
+    <td><form action="/delete" method="post">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>"/> 
+  <input type="hidden" name="id" value="<%= complete.id %>">
+  <input type="submit" name="delete_button" value="Delete From List"/>
+</form></td>
+  </tr>
+  <% end %>
+</table>
+
